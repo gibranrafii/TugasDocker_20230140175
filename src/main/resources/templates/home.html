@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background: #0E0E14;
+            padding: 2rem 1rem;
+            color: #F0EFFF;
+        }
+
+        .container { max-width: 860px; margin: 0 auto; }
+
+        /* Header */
+        .header {
+            background: #16161F;
+            border-radius: 16px;
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #2A2A3A;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-left h2 { font-size: 18px; font-weight: 600; color: #F0EFFF; }
+
+        .nim-badge {
+            display: inline-block;
+            background: #1E1B3A;
+            color: #9B93F0;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin: 4px 0 2px;
+            border: 1px solid #2E2B52;
+        }
+
+        .header-left p { font-size: 13px; color: #555; margin-top: 2px; }
+
+        .header-actions { display: flex; gap: 8px; align-items: center; }
+
+        .btn-input {
+            padding: 8px 16px;
+            background: #6C63D5;
+            color: #fff;
+            border: none;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+        .btn-input:hover { background: #574FBF; }
+
+        .btn-logout {
+            padding: 8px 16px;
+            background: #1E1010;
+            color: #FF6B6B;
+            border: 1px solid #5C2020;
+            border-radius: 9px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s;
+        }
+        .btn-logout:hover { background: #2A1010; }
+
+        /* Table Card */
+        .card {
+            background: #16161F;
+            border-radius: 16px;
+            border: 1px solid #2A2A3A;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.1rem 1.75rem;
+            border-bottom: 1px solid #2A2A3A;
+        }
+
+        .card-header h3 { font-size: 15px; font-weight: 600; color: #F0EFFF; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+
+        thead th {
+            background: #111118;
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            text-align: left;
+            padding: 10px 1.75rem;
+            border-bottom: 1px solid #2A2A3A;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        tbody td {
+            padding: 13px 1.75rem;
+            color: #C8C6E8;
+            border-bottom: 1px solid #1E1E2A;
+        }
+
+        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover td { background: #1A1A26; }
+
+        .no-col { color: #444; font-size: 13px; width: 50px; }
+
+        .badge {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 3px 11px;
+            border-radius: 20px;
+        }
+
+        .badge-laki { background: #0D1E35; color: #60A5FA; border: 1px solid #1E3A5C; }
+        .badge-perempuan { background: #2A0D1E; color: #F472B6; border: 1px solid #5C1E3A; }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #444;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <div class="header-left">
+            <h2>MY Website <span th:text="${myNim}"></span></h2>
+            <div class="nim-badge" th:text="${myNim}"></div>
+            <p>Selamat datang di aplikasi!</p>
+        </div>
+        <div class="header-actions">
+            <a th:href="@{/form}" class="btn-input">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                </svg>
+                Input Data
+            </a>
+            <a th:href="@{/logout}" class="btn-logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Data Mahasiswa</h3>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th class="no-col">No</th>
+                <th>Nama</th>
+                <th>NIM</th>
+                <th>Jenis Kelamin</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${users.empty}">
+                <td colspan="4">
+                    <div class="empty-state">Belum ada data mahasiswa</div>
+                </td>
+            </tr>
+            <tr th:each="user, stat : ${users}">
+                <td class="no-col" th:text="${stat.count}">1</td>
+                <td th:text="${user.nama}">Nama</td>
+                <td th:text="${user.nim}">NIM</td>
+                <td>
+                            <span class="badge"
+                                  th:classappend="${user.jenisKelamin == 'Laki-laki'} ? 'badge-laki' : 'badge-perempuan'"
+                                  th:text="${user.jenisKelamin}">
+                            </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
