@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background: #0E0E14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .wrapper { width: 100%; max-width: 420px; }
+
+        .card {
+            background: #16161F;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #2A2A3A;
+        }
+
+        .logo {
+            width: 52px;
+            height: 52px;
+            background: #1E1B3A;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2E2B52;
+        }
+
+        h2 { font-size: 22px; font-weight: 600; color: #F0EFFF; margin-bottom: 6px; }
+
+        .subtitle { font-size: 14px; color: #555; margin-bottom: 2rem; }
+
+        .error-box {
+            background: #2A1010;
+            border: 1px solid #5C2020;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #FF6B6B;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group { margin-bottom: 1.1rem; }
+
+        label { display: block; font-size: 13px; font-weight: 500; color: #777; margin-bottom: 6px; }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid #2A2A3A;
+            border-radius: 10px;
+            background: #0E0E14;
+            color: #F0EFFF;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder { color: #3A3A4A; }
+
+        input:focus {
+            border-color: #7F77DD;
+            box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.15);
+        }
+
+        .divider { height: 1px; background: #2A2A3A; margin: 1.5rem 0; }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 11px;
+            background: #6C63D5;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        button[type="submit"]:hover { background: #574FBF; }
+        button[type="submit"]:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="card">
+        <div class="logo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" fill="#9B93F0"/>
+            </svg>
+        </div>
+        <h2>Selamat datang</h2>
+        <p class="subtitle">Masuk ke akun Anda untuk melanjutkan</p>
+
+        <div class="error-box" th:if="${error}" th:text="${error}"></div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+            </div>
+            <div class="divider"></div>
+            <button type="submit">Masuk</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
