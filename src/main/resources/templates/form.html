@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Input Mahasiswa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background: #0E0E14;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .wrapper { width: 100%; max-width: 460px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #9B93F0;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 1.25rem;
+            transition: opacity 0.2s;
+        }
+        .back-link:hover { opacity: 0.7; }
+
+        .card {
+            background: #16161F;
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid #2A2A3A;
+        }
+
+        .card-icon {
+            width: 52px;
+            height: 52px;
+            background: #1E1B3A;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2E2B52;
+        }
+
+        h2 { font-size: 22px; font-weight: 600; color: #F0EFFF; margin-bottom: 6px; }
+
+        .subtitle { font-size: 14px; color: #555; margin-bottom: 2rem; }
+
+        .form-group { margin-bottom: 1.1rem; }
+
+        label.field-label { display: block; font-size: 13px; font-weight: 500; color: #777; margin-bottom: 6px; }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            border: 1px solid #2A2A3A;
+            border-radius: 10px;
+            background: #0E0E14;
+            color: #F0EFFF;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder { color: #3A3A4A; }
+
+        input[type="text"]:focus {
+            border-color: #7F77DD;
+            box-shadow: 0 0 0 4px rgba(127, 119, 221, 0.15);
+        }
+
+        .radio-group { display: flex; gap: 10px; }
+
+        .radio-card {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 1px solid #2A2A3A;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            font-size: 14px;
+            color: #888;
+            background: #0E0E14;
+        }
+
+        .radio-card:has(input:checked) {
+            border-color: #7F77DD;
+            background: #1E1B3A;
+            color: #C4BFFF;
+        }
+
+        .radio-card input[type="radio"] {
+            accent-color: #7F77DD;
+            width: 16px;
+            height: 16px;
+        }
+
+        .divider { height: 1px; background: #2A2A3A; margin: 1.75rem 0 1.5rem; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 11px;
+            background: #6C63D5;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-submit:hover { background: #574FBF; }
+        .btn-submit:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+
+    <a th:href="@{/home}" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Kembali ke Home
+    </a>
+
+    <div class="card">
+        <div class="card-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <path d="M9 12h6M9 16h6M17 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z" stroke="#9B93F0" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M9 8h6" stroke="#9B93F0" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <h2>Input Data Mahasiswa</h2>
+        <p class="subtitle">Isi formulir di bawah untuk menambahkan data</p>
+
+        <form th:action="@{/form}" method="post">
+            <div class="form-group">
+                <label class="field-label" for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" name="nama" placeholder="Contoh: Budi Santoso" required>
+            </div>
+
+            <div class="form-group">
+                <label class="field-label" for="nim">NIM</label>
+                <input type="text" id="nim" name="nim" placeholder="Contoh: 2200111001" required>
+            </div>
+
+            <div class="form-group">
+                <label class="field-label">Jenis Kelamin</label>
+                <div class="radio-group">
+                    <label class="radio-card">
+                        <input type="radio" name="jenisKelamin" value="Laki-laki" required>
+                        Laki-laki
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="jenisKelamin" value="Perempuan">
+                        Perempuan
+                    </label>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+            <button type="submit" class="btn-submit">Submit Data</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
