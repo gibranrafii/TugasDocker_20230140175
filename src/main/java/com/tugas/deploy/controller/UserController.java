@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    private final String USERNAME = "gibran";
+    private final String USERNAME = "admin";
     private final String PASSWORD = "20230140175";
 
     // untuk menyimpan data mahasiswa secara temporary
